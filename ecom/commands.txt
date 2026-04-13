@@ -1,0 +1,4 @@
+python manage.py loaddata fixtures/fixtures.json
+
+.env file will set during the time of payment gateway
+local setting file will need to be created

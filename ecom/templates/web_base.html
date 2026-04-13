@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        {% load static %}
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        
+
+        <title> {% block title %}{% endblock %}</title>
+        {% block metatag %}{% endblock %}
+        <!-- Bootstrap CSS -->
+        <link href="{% static 'website/css/bootstrap.min.css' %}" rel="stylesheet" crossorigin="anonymous">
+        <link rel="stylesheet" href="{% static '/website/css/all.min.css' %}" referrerpolicy="no-referrer" />
+        
+        {% block linkcss %}{% endblock %}
+        <link href="{% static 'website/css/style.css' %}" rel="stylesheet" crossorigin="anonymous">
+        <link href="{% static 'website/css/media-query.css' %}" rel="stylesheet" crossorigin="anonymous">
+
+    </head>
+    <body>
+        <!--Header -->
+        <header class="header" id="header_sticky">
+            <div class="container-fluid">
+                <div class="header-top">
+                    <div class="nav-top-left">
+
+                        <div class="fico-logo">
+                            <div class="fico-mobile_menu">
+                                <div class="fico-mobile" id="fico-mobile">
+                                    <img src="{% static 'website/images/icons/hum-baarger.svg' %}" alt="fico">
+                                </div>
+                            </div>
+                            <a href="{% url 'home' %}"> <img src="{% static 'website/images/icons/logo.svg' %}" alt="fico" srcset="{% static 'website/images/icons/logo.svg' %}" style="width: 120px;"></a>
+                        </div>
+                        <div class="nav-menu main-nav-menu" id="main-nav-menu">
+                            <ul>
+                                <li><a href="#">About Fico</a></li>
+                                <li><a href="{% url 'product_web_list' %}">Products</a></li>
+                                
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="nav-menu nav-top-right">
+                        <ul>
+                            <li>
+                                <div class="search-box" id="search-box">
+                                    <input type="search" name="search" id="search">
+                                    <button type="button" onclick="search_box()" id="search-btn"><img src="{% static 'website/images/icons/search.svg' %}" alt="Search"></button>
+                                </div>
+                            </li>
+                            <li class="cart-box">
+                                <button type="button" class="cart-qty-box" onclick="cart_open()"> <img src="{% static 'website/images/icons/shopping-cart.svg' %}" alt="cart">
+                                    <span class="item-qty" id="cart_item_quantity" {% if cart_item_count < 1 %}style="display: none;"{% endif %}>{{ cart_item_count|default:0 }}</span>
+                                    <span class="item-qty cart_item_quantity">{{ cart_item_count|default:0 }}</span>
+                                </button>
+                            </li>
+                            <li class="profile-nav">
+                                {% if user.is_authenticated %}
+                                    <a href="#"><img src="{% static 'website/images/icons/user-icon.svg' %}" alt="user"></a>
+                                    <ul>
+                                        <li><a href="">My Account</a></li>
+                                        <li><a href="#">Logout</a></li>
+                                    </ul>
+                                {% else %}
+                                    <a href=""><img src="{% static 'website/images/icons/user-icon.svg' %}" alt="user"></a>
+                                {% endif %}
+                            </li>
+                           
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </header>
+        <p style="display: none;padding: 0;margin:0; opacity: 0;">Fico is a contemporary furniture brand dedicated to redefining the relationship between craftsmanship, heritag and modern</p>
+        <div class="currency-box" id="currency-box" style="display: none;">
+            <div class="currency-container" id="currency-container">
+                <div class="currency-content">
+                    <div class="currency-text">
+                        <h3>International Shipping <span class="currency-close" onclick="closePopup()"> x </span> </h3>
+                        <p>Fico now delivers worldwide!
+                            Enjoy your favourite pieces delivered to your
+                            doorstep, no matter where you are!</p>
+                    </div>
+                    <div class="currency-menu">
+                        <h3>Choose Your Currency</h3>
+                        <div class="currency-menu">
+                            <input type="hidden" id="selected_currency" value="{{ selected_currency }}">
+                            <div class="custom-dropdown">
+                                <button class="dropdown-btn"> 
+                                    {% if selected_currency == 'BDT' %} Taka {% endif %} 
+                                    {% if selected_currency == 'EUR' %} Euro {% endif %} 
+                                    {% if selected_currency == 'GBP' %} GB Pound {% endif %} 
+                                    {% if selected_currency == 'USD' %} US Dollar {% endif %} 
+                                </button>
+                                <ul class="dropdown-list">
+                                    <li class="dropdown-item" onclick="selectOption(this, 'BDT')"> Taka </li>
+                                    <li class="dropdown-item" onclick="selectOption(this, 'EUR')"> Euro </li>
+                                    <li class="dropdown-item" onclick="selectOption(this, 'GBP')"> GB Pound </li>
+                                    <li class="dropdown-item" onclick="selectOption(this, 'USD')"> US Dollar </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="cart-pocket-box" id="cart-pocket-box" style="display: none;">
+            <div class="cart-pocket-container" id="pocket-container">
+                <div class="pocket-content">
+                    <div class="pocket-item">
+                        <div class="pocket-list">
+                            <table class="table-box">
+                                {% for cart in cart_items %}
+                                    <tr class="cart_item__{{ cart.product.id }}">
+                                        <td>
+                                            <div class="pocket-info-box">
+                                                <div class="pocket-product-image">
+                                                    {% if cart.product.image %}<img src="{{ cart.product.image.url }}" alt="{{ cart.product.name }}">{% endif %}
+                                                </div>
+                                                <div class="pocket-text">
+                                                    <p>{{ cart.product.name }}</p>
+                                                    <p class="pocket-product-price">Price: {{ cart.product.price|floatformat:2 }}</p>
+                                                    <div class="pocket-product-qty">
+                                                        <button type="button" id="decrement" class="decrement"><img src="{% static 'website/images/icons/minus.svg' %}" alt="-"></button>
+                                                        <input type="number" id="cart_qty" class="cart_qty cart_qty__{{ cart.product.id }}" min="0" max="50" data-product-id="{{ cart.product.id }}" value="{{ cart.quantity }}">
+                                                        <button type="button" id="increment" class="increment"><img src="{% static 'website/images/icons/plus.svg' %}" alt="+"></button>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </td>
+                                       <td with="100" class="text-center"><span class="total_price__{{ cart.product.id }}">{{ cart.total_amount|default:0|floatformat:2 }}</span></td>
+                                    </tr>
+                                {% endfor %}
+                            </table>
+                        </div>
+                         <div class="pocket-bottom">
+                            <div class="pocket-item-info">
+                                <div class="complete_order">
+                                    <a class="fico-btn" href="#">COMPLETE YOUR ORDER </a>
+                                </div>
+                                <div class="basket-link">
+                                    <a href="#">View your basket </a>
+                                </div>
+                            </div>
+                        </div> 
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        {% if messages %}
+            <ul class="messages">
+                {% for message in messages %}
+                    <li {% if message.tags %} class="{{ message.tags }}" {% endif %}>{{ message }}</li>
+                {% endfor %}
+            </ul>
+        {% endif %}
+        <!--Body -->
+        {% block content %}
+
+        {% endblock %}
+
+        <!--Footer -->
+        <footer class="footer">
+            <div class="container-fluid">
+                <div class="row justify-content-center">
+                    <div class="col-lg-12">
+                        <div class="row">
+                            <div class="col-md-9  mt-md-0">
+                                <div class="footer-menu">
+                                    <div class="row footer-row">
+                                        <div class="col-md-10">
+                                            <div class="footer-row footer-text-menu">
+                                                <ul class="footer-nav-menu">
+                                                    
+                                                    <li><a href="#">Contact</a></li>
+                                                    <li><a href="#">Privacy Policy</a></li>
+                                                    <li><a href="#">Terms & Conditions</a></li>
+                                                </ul>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                          
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </footer>
+        
+        <!-- Bootstrap JS -->
+        <script src="{% static 'website/js/bootstrap.bundle.min.js' %}"></script>
+        <!-- jQuery -->
+        <script src="{% static 'website/js/jquery-3.6.4.min.js' %}" crossorigin="anonymous"></script>
+        <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+        <!-- Custom Dropdown JS -->
+        <script src="{% static 'website/js/custom_dropdown.js' %}"></script>
+        
+        <script src="{% static 'website/js/cart_operation.js' %}"></script>
+
+        <script>
+
+            
+        </script>
+
+        {% block linkScript %}{% endblock %}
+
+       
+      
+    </body>
+</html>

@@ -1,0 +1,6 @@
+<form method="post">
+    {% csrf_token %}
+    <p>OTP sent to {{ email }}</p>
+    <input type="text" name="otp" maxlength="6" required>
+    <button type="submit">Verify OTP</button>
+</form>

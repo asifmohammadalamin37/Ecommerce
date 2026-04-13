@@ -1,0 +1,128 @@
+[
+    {
+        "model": "backend.menulist",
+        "pk": 1,
+        "fields": {
+            "module_name": "Ecommerce",
+            "menu_name": "Ecom Dashboard",
+            "menu_url": "/backend/dashboard/",
+            "menu_icon": "fa fa-users icon",
+            "parent_id": 0,
+            "is_main_menu": true,
+            "is_sub_menu": false,
+            "is_sub_child_menu": false,
+            "created_at": "2025-05-07T15:01:14.353Z",
+            "updated_at": "2025-05-07T15:01:14.353Z",
+            "deleted_at": "2025-05-07T15:01:14.353Z",
+            "created_by": 1,
+            "is_active": true,
+            "deleted": false
+        }
+    },
+    {
+        "model": "backend.menulist",
+        "pk": 2,
+        "fields": {
+            "module_name": "Setting",
+            "menu_name": "Setting Dashboard",
+            "menu_url": "/backend/setting-dashboard/",
+            "menu_icon": "fa fa-users icon",
+            "parent_id": 0,
+            "is_main_menu": true,
+            "is_sub_menu": false,
+            "is_sub_child_menu": false,
+            "created_at": "2025-05-07T15:01:14.353Z",
+            "updated_at": "2025-05-07T15:01:14.353Z",
+            "deleted_at": "2025-05-07T15:01:14.353Z",
+            "created_by": 1,
+            "is_active": true,
+            "deleted": false
+        }
+    },
+    {
+        "model": "backend.menulist",
+        "pk": 3,
+        "fields": {
+            "module_name": "Setting",
+            "menu_name": "Products Main Category",
+            "menu_url": "/backend/product-main-category-list/",
+            "menu_icon": "fa fa-users icon",
+            "parent_id": 2,
+            "is_main_menu": false,
+            "is_sub_menu": true,
+            "is_sub_child_menu": false,
+            "created_at": "2025-05-07T15:01:14.353Z",
+            "updated_at": "2025-05-07T15:01:14.353Z",
+            "deleted_at": "2025-05-07T15:01:14.353Z",
+            "created_by": 1,
+            "is_active": true,
+            "deleted": false
+        }
+    },
+
+    {
+        "model": "backend.menulist",
+        "pk": 4,
+        "fields": {
+            "module_name": "Setting",
+            "menu_name": "Product List",
+            "menu_url": "/backend/product-list/",
+            "menu_icon": "fa fa-users icon",
+            "parent_id": 2,
+            "is_main_menu": false,
+            "is_sub_menu": true,
+            "is_sub_child_menu": false,
+            "created_at": "2025-05-07T15:01:14.353Z",
+            "updated_at": "2025-05-07T15:01:14.353Z",
+            "deleted_at": "2025-05-07T15:01:14.353Z",
+            "created_by": 1,
+            "is_active": true,
+            "deleted": false
+        }
+    },
+
+    {
+        "model": "backend.menulist",
+        "pk": 5,
+        "fields": {
+            "module_name": "Setting",
+            "menu_name": "Brand List",
+            "menu_url": "/backend/brand-list/",
+            "menu_icon": "fa fa-users icon",
+            "parent_id": 2,
+            "is_main_menu": false,
+            "is_sub_menu": true,
+            "is_sub_child_menu": false,
+            "created_at": "2025-05-07T15:01:14.353Z",
+            "updated_at": "2025-05-07T15:01:14.353Z",
+            "deleted_at": "2025-05-07T15:01:14.353Z",
+            "created_by": 1,
+            "is_active": true,
+            "deleted": false
+        }
+    },
+
+    {
+        "model": "backend.menulist",
+        "pk": 6,
+        "fields": {
+            "module_name": "Setting",
+            "menu_name": "Category List",
+            "menu_url": "/backend/category-list/",
+            "menu_icon": "fa fa-users icon",
+            "parent_id": 2,
+            "is_main_menu": false,
+            "is_sub_menu": true,
+            "is_sub_child_menu": false,
+            "created_at": "2025-05-07T15:01:14.353Z",
+            "updated_at": "2025-05-07T15:01:14.353Z",
+            "deleted_at": "2025-05-07T15:01:14.353Z",
+            "created_by": 1,
+            "is_active": true,
+            "deleted": false
+        }
+    }
+    
+    
+
+]
